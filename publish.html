@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kiln - Publish your game</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <a class="logo" href="index.html">Kiln</a>
+    <nav>
+      <a href="index.html">Browse</a>
+      <a href="publish.html">Publish your game</a>
+      <a href="auth.html" id="auth-link">Log in</a>
+    </nav>
+  </header>
+
+  <main class="publish-box">
+    <h1>Publish your game</h1>
+    <p id="gate-message" class="message"></p>
+
+    <form id="publish-form" hidden>
+
+      <fieldset>
+        <legend>About the game</legend>
+
+        <label for="title">Title</label>
+        <input id="title" type="text" maxlength="80" required>
+
+        <label for="tagline">Tagline (one line, optional)</label>
+        <input id="tagline" type="text" maxlength="120">
+
+        <label for="description">Description</label>
+        <textarea id="description" rows="5" maxlength="2000"></textarea>
+
+        <label for="cover">Cover image (PNG, JPEG or WebP, up to 2 MB)</label>
+        <input id="cover" type="file" accept="image/png,image/jpeg,image/webp" required>
+      </fieldset>
+
+      <fieldset>
+        <legend>How players find it</legend>
+
+        <label for="genre">Genre</label>
+        <select id="genre" required>
+          <option value="action">Action</option>
+          <option value="platformer">Platformer</option>
+          <option value="puzzle">Puzzle</option>
+          <option value="adventure">Adventure</option>
+          <option value="rpg">RPG</option>
+          <option value="strategy">Strategy</option>
+          <option value="simulation">Simulation</option>
+          <option value="horror">Horror</option>
+          <option value="narrative">Narrative</option>
+          <option value="shooter">Shooter</option>
+          <option value="sports_racing">Sports and racing</option>
+          <option value="other">Other</option>
+        </select>
+
+        <label for="tags">Tags (separate with commas, up to 10)</label>
+        <input id="tags" type="text" placeholder="pixel art, cozy, short">
+
+        <label for="play_length">How long does it take to play?</label>
+        <select id="play_length" required>
+          <option value="under_15_min">Under 15 minutes</option>
+          <option value="15_to_60_min">15 to 60 minutes</option>
+          <option value="1_to_3_hours">1 to 3 hours</option>
+          <option value="over_3_hours">Over 3 hours</option>
+        </select>
+
+        <label for="players">Players</label>
+        <select id="players" required>
+          <option value="single">Single player</option>
+          <option value="multi">Multiplayer</option>
+          <option value="both">Both</option>
+        </select>
+
+        <label>Controls</label>
+        <div class="checks">
+          <label><input type="checkbox" name="controls" value="keyboard"> Keyboard</label>
+          <label><input type="checkbox" name="controls" value="mouse"> Mouse</label>
+          <label><input type="checkbox" name="controls" value="gamepad"> Gamepad</label>
+          <label><input type="checkbox" name="controls" value="touch"> Touch</label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Where it lives</legend>
+        <p class="hint">Add at least one link. Every link must start with https://</p>
+
+        <label for="play_url">Instant-play link (optional)</label>
+        <input id="play_url" type="url" placeholder="https://...">
+        <p class="hint">A page where the game runs in the browser. It only plays on Kiln if that host allows embedding.</p>
+
+        <label for="steam_url">Steam</label>
+        <input id="steam_url" type="url" placeholder="https://store.steampowered.com/app/...">
+
+        <label for="itch_url">itch.io</label>
+        <input id="itch_url" type="url" placeholder="https://yourname.itch.io/your-game">
+
+        <label for="newgrounds_url">Newgrounds</label>
+        <input id="newgrounds_url" type="url" placeholder="https://www.newgrounds.com/...">
+
+        <label for="gamejolt_url">Game Jolt</label>
+        <input id="gamejolt_url" type="url" placeholder="https://gamejolt.com/games/...">
+
+        <label for="website_url">Your website or other link</label>
+        <input id="website_url" type="url" placeholder="https://...">
+      </fieldset>
+
+      <fieldset>
+        <legend>How it was made</legend>
+        <p class="hint">Be honest. Players can filter by this, and anyone can report a game that was declared wrongly.</p>
+
+        <label for="ai_art">Art</label>
+        <select id="ai_art">
+          <option value="none">No generative AI</option>
+          <option value="assisted">AI-assisted</option>
+          <option value="mostly">Mostly AI-generated</option>
+        </select>
+
+        <label for="ai_audio">Audio and music</label>
+        <select id="ai_audio">
+          <option value="none">No generative AI</option>
+          <option value="assisted">AI-assisted</option>
+          <option value="mostly">Mostly AI-generated</option>
+        </select>
+
+        <label for="ai_writing">Writing</label>
+        <select id="ai_writing">
+          <option value="none">No generative AI</option>
+          <option value="assisted">AI-assisted</option>
+          <option value="mostly">Mostly AI-generated</option>
+        </select>
+
+        <label for="ai_code">Code</label>
+        <select id="ai_code">
+          <option value="none">No generative AI</option>
+          <option value="assisted">AI-assisted</option>
+          <option value="mostly">Mostly AI-generated</option>
+        </select>
+
+        <p id="category-note" class="hint"></p>
+      </fieldset>
+
+      <button type="submit">Publish</button>
+    </form>
+
+    <p id="publish-message" class="message"></p>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="session.js"></script>
+  <script src="publish.js"></script>
+</body>
+</html>

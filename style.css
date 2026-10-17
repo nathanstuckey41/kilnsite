@@ -215,3 +215,92 @@ footer {
   font-weight: bold;
   cursor: pointer;
 }
+.publish-box {
+  max-width: 640px;
+  margin: 60px auto;
+  padding: 0 20px;
+}
+
+.publish-box h1 {
+  color: #ff6a1f;
+  text-align: center;
+}
+
+.publish-box fieldset {
+  border: 1px solid #2a231e;
+  border-radius: 10px;
+  padding: 18px;
+  margin: 0 0 20px;
+}
+
+.publish-box legend {
+  color: #ff6a1f;
+  font-weight: bold;
+  padding: 0 8px;
+}
+
+.publish-box label {
+  display: block;
+  margin-bottom: 6px;
+  color: #b9a99b;
+}
+
+.publish-box input[type="text"],
+.publish-box input[type="url"],
+.publish-box select,
+.publish-box textarea {
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 14px;
+  background-color: #1e1915;
+  color: #f2e8df;
+  border: 1px solid #2a231e;
+  border-radius: 8px;
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+}
+
+.publish-box input[type="file"] {
+  margin-bottom: 14px;
+  color: #b9a99b;
+}
+
+.publish-box input:focus,
+.publish-box select:focus,
+.publish-box textarea:focus {
+  outline: none;
+  border-color: #ff6a1f;
+}
+
+.checks label {
+  display: inline-block;
+  margin-right: 16px;
+  color: #f2e8df;
+}
+
+.checks input {
+  margin-right: 6px;
+}
+
+.hint {
+  color: #7d6f64;
+  font-size: 14px;
+  margin: 0 0 14px;
+}
+
+.publish-box button {
+  width: 100%;
+  padding: 14px;
+  background-color: #ff6a1f;
+  color: #14110f;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.publish-box button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
