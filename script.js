@@ -3,12 +3,13 @@ const searchBox = document.getElementById("search");
 const genreFilter = document.getElementById("f-genre");
 const lengthFilter = document.getElementById("f-length");
 const playersFilter = document.getElementById("f-players");
-const controlsFilter = document.getElementById("f-controls");
 const sortSelect = document.getElementById("f-sort");
 const noAiBox = document.getElementById("f-noai");
 const resultCount = document.getElementById("result-count");
 
 let allGames = [];
+
+fillSelect(genreFilter, genreNames, "All genres");
 
 function makeCard(game) {
   const link = document.createElement("a");
@@ -35,7 +36,7 @@ function makeCard(game) {
   const facts = document.createElement("p");
   facts.className = "facts";
   facts.textContent =
-    genreNames[game.genre] + " · " + lengthNames[game.play_length];
+    (genreNames[game.genre] || "Other") + " · " + lengthNames[game.play_length];
 
   card.append(cover, title, developer, facts);
 
@@ -57,9 +58,9 @@ function matches(game) {
   if (text) {
     const haystack = [
       game.title,
-      game.tagline,
+      taglineNames[game.tagline] || "",
       game.profiles ? game.profiles.username : "",
-      game.tags.join(" ")
+      knownLabels(game.tags, tagNames).join(" ")
     ]
       .join(" ")
       .toLowerCase();
@@ -79,9 +80,6 @@ function matches(game) {
     return false;
   }
   if (playersFilter.value === "multi" && game.players === "single") {
-    return false;
-  }
-  if (controlsFilter.value && !game.controls.includes(controlsFilter.value)) {
     return false;
   }
   if (noAiBox.checked && game.category !== "human") {
@@ -132,7 +130,7 @@ async function loadGames() {
   const { data, error } = await db
     .from("games")
     .select(
-      "id, title, tagline, genre, tags, play_length, players, controls, cover_path, category, created_at, profiles(username), game_links(price_type, price_cents, currency)"
+      "id, title, tagline, genre, tags, play_length, players, cover_path, category, created_at, profiles(username), game_links(price_type, price_cents, currency)"
     )
     .eq("status", "live")
     .order("created_at", { ascending: false })
@@ -150,8 +148,7 @@ async function loadGames() {
 }
 
 for (const control of [
-  searchBox, genreFilter, lengthFilter, playersFilter,
-  controlsFilter, sortSelect, noAiBox
+  searchBox, genreFilter, lengthFilter, playersFilter, sortSelect, noAiBox
 ]) {
   control.addEventListener("input", render);
 }

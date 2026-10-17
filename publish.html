@@ -29,37 +29,29 @@
         <label for="title">Title</label>
         <input id="title" type="text" maxlength="80" required>
 
-        <label for="tagline">Tagline (one line, optional)</label>
-        <input id="tagline" type="text" maxlength="120">
+        <label for="tagline">Tagline (optional)</label>
+        <select id="tagline"></select>
 
-        <label for="description">Description</label>
-        <textarea id="description" rows="5" maxlength="2000"></textarea>
+        <label for="description">About this game (optional)</label>
+        <textarea id="description" rows="6" maxlength="2000"></textarea>
 
         <label for="cover">Cover image (PNG, JPEG or WebP, up to 2 MB)</label>
         <input id="cover" type="file" accept="image/png,image/jpeg,image/webp" required>
+
+        <label for="screenshots">Screenshots (1 to 5 images, up to 2 MB each)</label>
+        <input id="screenshots" type="file" accept="image/png,image/jpeg,image/webp" multiple required>
       </fieldset>
 
       <fieldset>
         <legend>How players find it</legend>
 
         <label for="genre">Genre</label>
-        <select id="genre" required>
-          <option value="action">Action</option>
-          <option value="platformer">Platformer</option>
-          <option value="puzzle">Puzzle</option>
-          <option value="adventure">Adventure</option>
-          <option value="rpg">RPG</option>
-          <option value="strategy">Strategy</option>
-          <option value="simulation">Simulation</option>
-          <option value="horror">Horror</option>
-          <option value="narrative">Narrative</option>
-          <option value="shooter">Shooter</option>
-          <option value="sports_racing">Sports and racing</option>
-          <option value="other">Other</option>
-        </select>
+        <select id="genre" required></select>
 
-        <label for="tags">Tags (separate with commas, up to 10)</label>
-        <input id="tags" type="text" placeholder="pixel art, cozy, short">
+        <label for="tag-picker">Tags (pick up to 10)</label>
+        <select id="tag-picker"></select>
+        <div id="tag-chips" class="tag-chips"></div>
+        <p id="tag-count" class="hint">0 of 10 chosen</p>
 
         <label for="play_length">How long does it take to play?</label>
         <select id="play_length" required>
@@ -75,43 +67,90 @@
           <option value="multi">Multiplayer</option>
           <option value="both">Both</option>
         </select>
+      </fieldset>
 
-        <label>Controls</label>
-        <div class="checks">
-          <label><input type="checkbox" name="controls" value="keyboard"> Keyboard</label>
-          <label><input type="checkbox" name="controls" value="mouse"> Mouse</label>
-          <label><input type="checkbox" name="controls" value="gamepad"> Gamepad</label>
-          <label><input type="checkbox" name="controls" value="touch"> Touch</label>
+      <fieldset>
+        <legend>Where to get it</legend>
+        <p class="hint">Add a link for each place your game is available, with its price there. Links must start with https://</p>
+
+        <label for="currency">Currency for the prices below</label>
+        <select id="currency">
+          <option value="USD">USD ($)</option>
+          <option value="EUR">EUR</option>
+          <option value="GBP">GBP</option>
+          <option value="CAD">CAD</option>
+          <option value="AUD">AUD</option>
+        </select>
+
+        <div class="link-row">
+          <label for="steam_url">Steam</label>
+          <input id="steam_url" type="url" placeholder="https://store.steampowered.com/app/...">
+          <div class="price-row">
+            <select id="steam_type">
+              <option value="free">Free</option>
+              <option value="paid">Paid</option>
+              <option value="pwyw">Pay what you want</option>
+            </select>
+            <input id="steam_price" type="number" step="0.01" min="0.01" max="1000" placeholder="19.99">
+          </div>
+        </div>
+
+        <div class="link-row">
+          <label for="itch_url">itch.io</label>
+          <input id="itch_url" type="url" placeholder="https://yourname.itch.io/your-game">
+          <div class="price-row">
+            <select id="itch_type">
+              <option value="free">Free</option>
+              <option value="paid">Paid</option>
+              <option value="pwyw">Pay what you want</option>
+            </select>
+            <input id="itch_price" type="number" step="0.01" min="0.01" max="1000" placeholder="9.99">
+          </div>
+        </div>
+
+        <div class="link-row">
+          <label for="newgrounds_url">Newgrounds</label>
+          <input id="newgrounds_url" type="url" placeholder="https://www.newgrounds.com/...">
+          <div class="price-row">
+            <select id="newgrounds_type">
+              <option value="free">Free</option>
+              <option value="paid">Paid</option>
+              <option value="pwyw">Pay what you want</option>
+            </select>
+            <input id="newgrounds_price" type="number" step="0.01" min="0.01" max="1000" placeholder="4.99">
+          </div>
+        </div>
+
+        <div class="link-row">
+          <label for="gamejolt_url">Game Jolt</label>
+          <input id="gamejolt_url" type="url" placeholder="https://gamejolt.com/games/...">
+          <div class="price-row">
+            <select id="gamejolt_type">
+              <option value="free">Free</option>
+              <option value="paid">Paid</option>
+              <option value="pwyw">Pay what you want</option>
+            </select>
+            <input id="gamejolt_price" type="number" step="0.01" min="0.01" max="1000" placeholder="4.99">
+          </div>
+        </div>
+
+        <div class="link-row">
+          <label for="website_url">Your own website</label>
+          <input id="website_url" type="url" placeholder="https://...">
+          <div class="price-row">
+            <select id="website_type">
+              <option value="free">Free</option>
+              <option value="paid">Paid</option>
+              <option value="pwyw">Pay what you want</option>
+            </select>
+            <input id="website_price" type="number" step="0.01" min="0.01" max="1000" placeholder="9.99">
+          </div>
         </div>
       </fieldset>
 
       <fieldset>
-        <legend>Where it lives</legend>
-        <p class="hint">Add at least one link. Every link must start with https://</p>
-
-        <label for="play_url">Instant-play link (optional)</label>
-        <input id="play_url" type="url" placeholder="https://...">
-        <p class="hint">A page where the game runs in the browser. It only plays on Kiln if that host allows embedding.</p>
-
-        <label for="steam_url">Steam</label>
-        <input id="steam_url" type="url" placeholder="https://store.steampowered.com/app/...">
-
-        <label for="itch_url">itch.io</label>
-        <input id="itch_url" type="url" placeholder="https://yourname.itch.io/your-game">
-
-        <label for="newgrounds_url">Newgrounds</label>
-        <input id="newgrounds_url" type="url" placeholder="https://www.newgrounds.com/...">
-
-        <label for="gamejolt_url">Game Jolt</label>
-        <input id="gamejolt_url" type="url" placeholder="https://gamejolt.com/games/...">
-
-        <label for="website_url">Your website or other link</label>
-        <input id="website_url" type="url" placeholder="https://...">
-      </fieldset>
-
-      <fieldset>
         <legend>How it was made</legend>
-        <p class="hint">>Players can choose to filter games by how they were made. Please answer honestly.</p>
+        <p class="hint">Players can choose to filter games by how they were made. Please answer honestly.</p>
 
         <label for="ai_art">Art</label>
         <select id="ai_art">
@@ -153,6 +192,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="config.js"></script>
   <script src="session.js"></script>
+  <script src="labels.js"></script>
   <script src="publish.js"></script>
 </body>
 </html>

@@ -471,3 +471,24 @@ main .hint {
   line-height: 1.6;
   margin: 0 0 12px;
 }
+.tag-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.publish-box button.tag-chip {
+  width: auto;
+  padding: 6px 12px;
+  background-color: #1e1915;
+  color: #f2e8df;
+  border: 1px solid #ff6a1f;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: normal;
+}
+
+.publish-box button.tag-chip:hover {
+  background-color: #2a1d14;
+}

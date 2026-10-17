@@ -3,23 +3,29 @@ const form = document.getElementById("publish-form");
 const message = document.getElementById("publish-message");
 const categoryNote = document.getElementById("category-note");
 const submitButton = form.querySelector("button[type='submit']");
+const taglineSelect = document.getElementById("tagline");
+const genreSelect = document.getElementById("genre");
+const tagPicker = document.getElementById("tag-picker");
+const tagChips = document.getElementById("tag-chips");
+const tagCount = document.getElementById("tag-count");
 
 const aiIds = ["ai_art", "ai_audio", "ai_writing", "ai_code"];
+const platforms = ["steam", "itch", "newgrounds", "gamejolt", "website"];
+const platformLabels = {
+  steam: "Steam",
+  itch: "itch.io",
+  newgrounds: "Newgrounds",
+  gamejolt: "Game Jolt",
+  website: "your website"
+};
+const extensions = { "image/png": "png", "image/jpeg": "jpg", "image/webp": "webp" };
+const maxImageSize = 2 * 1024 * 1024;
+
 let currentUser = null;
+const chosenTags = [];
 
 function value(id) {
   return document.getElementById(id).value.trim();
-}
-
-function parseTags(text) {
-  const tags = [];
-  for (const raw of text.split(",")) {
-    const tag = raw.trim().toLowerCase();
-    if (tag && tag.length <= 30 && !tags.includes(tag)) {
-      tags.push(tag);
-    }
-  }
-  return tags.slice(0, 10);
 }
 
 function updateCategoryNote() {
@@ -29,6 +35,91 @@ function updateCategoryNote() {
   categoryNote.textContent = allHuman
     ? "This game will be labeled: no generative AI."
     : "This game will be labeled: uses generative AI.";
+}
+
+function fillTagPicker() {
+  const first = document.createElement("option");
+  first.value = "";
+  first.textContent = "Add a tag...";
+  tagPicker.append(first);
+
+  for (const groupName of Object.keys(tagGroups)) {
+    const group = document.createElement("optgroup");
+    group.label = groupName;
+
+    for (const key of Object.keys(tagGroups[groupName])) {
+      const option = document.createElement("option");
+      option.value = key;
+      option.textContent = tagGroups[groupName][key];
+      group.append(option);
+    }
+    tagPicker.append(group);
+  }
+}
+
+function renderTagChips() {
+  tagChips.replaceChildren();
+
+  for (const tag of chosenTags) {
+    const chip = document.createElement("button");
+    chip.type = "button";
+    chip.className = "tag-chip";
+    chip.textContent = tagNames[tag] + " ✕";
+    chip.addEventListener("click", function () {
+      chosenTags.splice(chosenTags.indexOf(tag), 1);
+      renderTagChips();
+    });
+    tagChips.append(chip);
+  }
+
+  tagCount.textContent = chosenTags.length + " of 10 chosen";
+}
+
+tagPicker.addEventListener("change", function () {
+  const tag = tagPicker.value;
+  tagPicker.value = "";
+
+  if (!tag || chosenTags.includes(tag)) {
+    return;
+  }
+  if (chosenTags.length >= 10) {
+    message.textContent = "You can pick up to 10 tags.";
+    return;
+  }
+
+  message.textContent = "";
+  chosenTags.push(tag);
+  renderTagChips();
+});
+
+function checkImage(file) {
+  if (!extensions[file.type]) {
+    return "Images must be PNG, JPEG or WebP.";
+  }
+  if (file.size > maxImageSize) {
+    return "Each image must be 2 MB or smaller.";
+  }
+  return null;
+}
+
+async function uploadImage(file) {
+  const path =
+    currentUser.id + "/" + crypto.randomUUID() + "." + extensions[file.type];
+
+  const { error } = await db.storage
+    .from("covers")
+    .upload(path, file, { contentType: file.type });
+
+  if (error) {
+    throw new Error(error.message);
+  }
+  return path;
+}
+
+async function removeImages(paths) {
+  if (paths.length > 0) {
+    await db.storage.from("covers").remove(paths);
+  }
 }
 
 async function checkAccess() {
@@ -50,7 +141,11 @@ async function checkAccess() {
     const link = document.createElement("a");
     link.href = "profile.html";
     link.textContent = "Open your profile";
-    gate.append("You need a developer account to publish. ", link, " and choose Become a developer.");
+    gate.append(
+      "You need a developer account to publish. ",
+      link,
+      " and choose Become a developer."
+    );
     return;
   }
 
@@ -58,6 +153,11 @@ async function checkAccess() {
   form.hidden = false;
   updateCategoryNote();
 }
+
+fillSelect(taglineSelect, taglineNames, "No tagline");
+fillSelect(genreSelect, genreNames, "Choose a genre");
+fillTagPicker();
+renderTagChips();
 
 for (const id of aiIds) {
   document.getElementById(id).addEventListener("change", updateCategoryNote);
@@ -71,64 +171,89 @@ form.addEventListener("submit", async function (event) {
     return;
   }
 
-  const playUrl = value("play_url");
-  const links = [
-    { platform: "steam", url: value("steam_url") },
-    { platform: "itch", url: value("itch_url") },
-    { platform: "newgrounds", url: value("newgrounds_url") },
-    { platform: "gamejolt", url: value("gamejolt_url") },
-    { platform: "website", url: value("website_url") }
-  ].filter(function (link) {
-    return link.url !== "";
-  });
+  const currency = value("currency");
+  const links = [];
 
-  if (!playUrl && links.length === 0) {
+  for (const platform of platforms) {
+    const url = value(platform + "_url");
+    if (url === "") {
+      continue;
+    }
+
+    const priceType = value(platform + "_type");
+    let priceCents = null;
+
+    if (priceType === "paid") {
+      const amount = Number(value(platform + "_price"));
+      if (!(amount >= 0.01 && amount <= 1000)) {
+        message.textContent =
+          "Enter a price between 0.01 and 1000 for " + platformLabels[platform] + ".";
+        return;
+      }
+      priceCents = Math.round(amount * 100);
+    }
+
+    links.push({
+      platform: platform,
+      url: url,
+      price_type: priceType,
+      price_cents: priceCents,
+      currency: currency
+    });
+  }
+
+  if (links.length === 0) {
     message.textContent = "Add at least one link so players can find your game.";
     return;
   }
 
-  const allUrls = links.map(function (link) { return link.url; });
-  if (playUrl) {
-    allUrls.push(playUrl);
-  }
-  if (allUrls.some(function (url) { return !url.startsWith("https://"); })) {
+  if (links.some(function (link) { return !link.url.startsWith("https://"); })) {
     message.textContent = "Every link must start with https://";
     return;
   }
 
   const coverFile = document.getElementById("cover").files[0];
-  const extensions = { "image/png": "png", "image/jpeg": "jpg", "image/webp": "webp" };
+  const screenshotFiles = Array.from(document.getElementById("screenshots").files);
 
-  if (!coverFile || !extensions[coverFile.type]) {
-    message.textContent = "Choose a PNG, JPEG or WebP cover image.";
+  if (!coverFile) {
+    message.textContent = "Choose a cover image.";
     return;
   }
-  if (coverFile.size > 2 * 1024 * 1024) {
-    message.textContent = "The cover image must be 2 MB or smaller.";
+  if (screenshotFiles.length < 1 || screenshotFiles.length > 5) {
+    message.textContent = "Add between 1 and 5 screenshots.";
     return;
+  }
+
+  for (const file of [coverFile, ...screenshotFiles]) {
+    const problem = checkImage(file);
+    if (problem) {
+      message.textContent = problem;
+      return;
+    }
   }
 
   submitButton.disabled = true;
   message.textContent = "Publishing...";
 
-  const coverPath =
-    currentUser.id + "/" + crypto.randomUUID() + "." + extensions[coverFile.type];
+  const uploaded = [];
+  let coverPath;
+  const screenshotPaths = [];
 
-  const { error: uploadError } = await db.storage
-    .from("covers")
-    .upload(coverPath, coverFile, { contentType: coverFile.type });
+  try {
+    coverPath = await uploadImage(coverFile);
+    uploaded.push(coverPath);
 
-  if (uploadError) {
-    message.textContent = "Cover upload failed: " + uploadError.message;
+    for (const file of screenshotFiles) {
+      const path = await uploadImage(file);
+      uploaded.push(path);
+      screenshotPaths.push(path);
+    }
+  } catch (error) {
+    await removeImages(uploaded);
+    message.textContent = "Image upload failed: " + error.message;
     submitButton.disabled = false;
     return;
   }
-
-  const controls = Array.from(
-    form.querySelectorAll("input[name='controls']:checked")
-  ).map(function (box) {
-    return box.value;
-  });
 
   const { data: game, error: gameError } = await db
     .from("games")
@@ -137,12 +262,11 @@ form.addEventListener("submit", async function (event) {
       tagline: value("tagline"),
       description: value("description"),
       genre: value("genre"),
-      tags: parseTags(value("tags")),
+      tags: chosenTags,
       play_length: value("play_length"),
       players: value("players"),
-      controls: controls,
       cover_path: coverPath,
-      play_url: playUrl || null,
+      screenshots: screenshotPaths,
       ai_art: value("ai_art"),
       ai_audio: value("ai_audio"),
       ai_writing: value("ai_writing"),
@@ -152,11 +276,11 @@ form.addEventListener("submit", async function (event) {
     .single();
 
   if (gameError) {
-    await db.storage.from("covers").remove([coverPath]);
+    await removeImages(uploaded);
 
     if (gameError.code === "23514") {
       message.textContent =
-        "Some details don't pass the checks: titles up to 80 characters, taglines up to 120, descriptions up to 2000, and at most 10 tags.";
+        "Some details don't pass the checks: titles are up to 80 characters, the about text up to 2000, and you can pick up to 10 tags.";
     } else if (gameError.code === "42501") {
       message.textContent = "You need a developer account to publish.";
     } else {
@@ -166,24 +290,29 @@ form.addEventListener("submit", async function (event) {
     return;
   }
 
-  if (links.length > 0) {
-    const rows = links.map(function (link) {
-      return { game_id: game.id, platform: link.platform, url: link.url };
-    });
+  const rows = links.map(function (link) {
+    return {
+      game_id: game.id,
+      platform: link.platform,
+      url: link.url,
+      price_type: link.price_type,
+      price_cents: link.price_cents,
+      currency: link.currency
+    };
+  });
 
-    const { error: linkError } = await db.from("game_links").insert(rows);
+  const { error: linkError } = await db.from("game_links").insert(rows);
 
-    if (linkError) {
-      await db.from("games").delete().eq("id", game.id);
-      await db.storage.from("covers").remove([coverPath]);
+  if (linkError) {
+    await db.from("games").delete().eq("id", game.id);
+    await removeImages(uploaded);
 
-      message.textContent =
-        linkError.code === "23514"
-          ? "One link doesn't match its platform. For example, the Steam link must be a store.steampowered.com/app/ address."
-          : linkError.message;
-      submitButton.disabled = false;
-      return;
-    }
+    message.textContent =
+      linkError.code === "23514"
+        ? "A link or price didn't pass the checks. For example, the Steam link must be a store.steampowered.com/app/ address."
+        : linkError.message;
+    submitButton.disabled = false;
+    return;
   }
 
   form.hidden = true;

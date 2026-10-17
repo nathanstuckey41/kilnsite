@@ -35,47 +35,6 @@ function trackClick(linkId) {
   db.rpc("record_click", { link_id: linkId }).then(function () {});
 }
 
-function buildPlayer(url) {
-  let target;
-  try {
-    target = new URL(url);
-  } catch (error) {
-    return null;
-  }
-
-  if (target.protocol !== "https:" || target.origin === window.location.origin) {
-    return null;
-  }
-
-  const section = el("section", "player");
-  section.append(el("h2", null, "Play it here"));
-
-  const button = el("button", "play-button", "Load the game");
-  button.addEventListener("click", function () {
-    const frame = document.createElement("iframe");
-    frame.className = "play-frame";
-    frame.title = "Game";
-    frame.src = target.href;
-    frame.referrerPolicy = "no-referrer";
-    frame.setAttribute(
-      "sandbox",
-      "allow-scripts allow-same-origin allow-pointer-lock allow-fullscreen"
-    );
-    frame.setAttribute("allow", "fullscreen");
-    button.replaceWith(frame);
-  });
-
-  section.append(
-    button,
-    el(
-      "p",
-      "hint",
-      "If the game doesn't appear, its host doesn't allow embedding. Use one of the links above instead."
-    )
-  );
-  return section;
-}
-
 function renderGame(game) {
   document.title = game.title + " - Kiln";
   const developer = game.profiles ? game.profiles.username : "unknown";
@@ -90,8 +49,9 @@ function renderGame(game) {
 
   const info = el("div", "game-info");
   info.append(el("h1", null, game.title));
-  if (game.tagline) {
-    info.append(el("p", "tagline", game.tagline));
+
+  if (taglineNames[game.tagline]) {
+    info.append(el("p", "tagline", taglineNames[game.tagline]));
   }
 
   const byline = el("p", "byline", "By ");
@@ -102,16 +62,10 @@ function renderGame(game) {
 
   const chips = el("div", "chips");
   const chipTexts = [
-    genreNames[game.genre],
+    genreNames[game.genre] || "Other",
     lengthNames[game.play_length],
     playerNames[game.players]
-  ]
-    .concat(
-      game.controls.map(function (control) {
-        return controlNames[control];
-      })
-    )
-    .concat(game.tags);
+  ].concat(knownLabels(game.tags, tagNames));
 
   for (const text of chipTexts) {
     chips.append(el("span", null, text));
@@ -154,13 +108,6 @@ function renderGame(game) {
 
   page.replaceChildren(hero, buy);
 
-  if (game.play_url) {
-    const player = buildPlayer(game.play_url);
-    if (player) {
-      page.append(player);
-    }
-  }
-
   if (game.screenshots.length > 0) {
     const shots = el("section", "shots");
     shots.append(el("h2", null, "Screenshots"));
@@ -184,14 +131,16 @@ function renderGame(game) {
     page.append(shots);
   }
 
-  const about = el("section", "about");
-  about.append(el("h2", null, "About this game"));
-  for (const paragraph of game.description.split(/\n\s*\n/)) {
-    if (paragraph.trim()) {
-      about.append(el("p", null, paragraph.trim()));
+  if (game.description.trim()) {
+    const about = el("section", "about");
+    about.append(el("h2", null, "About this game"));
+    for (const paragraph of game.description.split(/\n\s*\n/)) {
+      if (paragraph.trim()) {
+        about.append(el("p", null, paragraph.trim()));
+      }
     }
+    page.append(about);
   }
-  page.append(about);
 
   const made = el("section", "made");
   made.append(el("h2", null, "How it was made"));

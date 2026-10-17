@@ -23,27 +23,12 @@
   </section>
 
  <main>
-  <main>
   <h2>Browse games</h2>
 
   <input id="search" class="search" type="text" placeholder="Search by title, developer, or tag">
 
   <div class="filters">
-    <select id="f-genre">
-      <option value="">All genres</option>
-      <option value="action">Action</option>
-      <option value="platformer">Platformer</option>
-      <option value="puzzle">Puzzle</option>
-      <option value="adventure">Adventure</option>
-      <option value="rpg">RPG</option>
-      <option value="strategy">Strategy</option>
-      <option value="simulation">Simulation</option>
-      <option value="horror">Horror</option>
-      <option value="narrative">Narrative</option>
-      <option value="shooter">Shooter</option>
-      <option value="sports_racing">Sports and racing</option>
-      <option value="other">Other</option>
-    </select>
+    <select id="f-genre"></select>
 
     <select id="f-length">
       <option value="">Any length</option>
@@ -59,14 +44,6 @@
       <option value="multi">Multiplayer</option>
     </select>
 
-    <select id="f-controls">
-      <option value="">Any controls</option>
-      <option value="keyboard">Keyboard</option>
-      <option value="mouse">Mouse</option>
-      <option value="gamepad">Gamepad</option>
-      <option value="touch">Touch</option>
-    </select>
-
     <select id="f-sort">
       <option value="new">Newest first</option>
       <option value="title">Title A to Z</option>
@@ -79,7 +56,6 @@
 
   <p id="result-count" class="hint"></p>
   <div class="grid" id="game-grid"></div>
-</main>
 </main>
 
   <footer>

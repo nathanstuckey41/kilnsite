@@ -1,17 +1,145 @@
 const genreNames = {
   action: "Action",
-  platformer: "Platformer",
-  puzzle: "Puzzle",
   adventure: "Adventure",
-  rpg: "RPG",
-  strategy: "Strategy",
-  simulation: "Simulation",
+  arcade: "Arcade",
+  beat_em_up: "Beat 'em up",
+  board_card: "Board and card",
+  casual: "Casual",
+  city_builder: "City builder",
+  clicker_idle: "Clicker and idle",
+  deckbuilder: "Deckbuilder",
+  educational: "Educational",
+  fighting: "Fighting",
   horror: "Horror",
+  metroidvania: "Metroidvania",
+  music_rhythm: "Music and rhythm",
   narrative: "Narrative",
+  open_world: "Open world",
+  party_trivia: "Party and trivia",
+  platformer: "Platformer",
+  point_and_click: "Point and click",
+  puzzle: "Puzzle",
+  roguelike: "Roguelike",
+  rpg: "RPG",
+  sandbox: "Sandbox",
   shooter: "Shooter",
+  simulation: "Simulation",
   sports_racing: "Sports and racing",
+  stealth: "Stealth",
+  strategy: "Strategy",
+  survival: "Survival",
+  tactics: "Tactics",
+  tower_defense: "Tower defense",
+  visual_novel: "Visual novel",
+  walking_sim: "Walking sim",
   other: "Other"
 };
+
+const taglineNames = {
+  short_and_sweet: "Short and sweet",
+  cozy_unwind: "A cozy game to unwind with",
+  hard_rewarding: "Brutally hard, deeply rewarding",
+  one_more_run: "Just one more run",
+  easy_to_learn: "Easy to learn, hard to put down",
+  made_in_a_jam: "Made for a game jam",
+  solo_made: "Made by one person",
+  tiny_team: "Made by a tiny team",
+  story_first: "A story you'll remember",
+  one_sitting: "Finish it in one sitting",
+  brain_teaser: "A brain-teaser worth the headache",
+  tense_unsettling: "Tense, dark, and unsettling",
+  take_your_time: "Relax and take your time",
+  fast_frantic: "Fast, frantic, and fun",
+  best_with_friends: "Best with friends",
+  retro_love_letter: "A love letter to retro games",
+  strange_surreal: "Strange, surreal, and unforgettable",
+  build_your_way: "Build it your way",
+  explore_slowly: "Explore a world at your own pace",
+  deep_to_master: "Easy to start, deep to master",
+  hidden_gem: "A hidden gem you might have missed",
+  still_growing: "Early and still growing",
+  funny_throughout: "Funny from start to finish",
+  quiet_emotional: "Quiet, emotional, and personal"
+};
+
+const tagGroups = {
+  "Art style": {
+    pixel_art: "Pixel art",
+    hand_drawn: "Hand-drawn",
+    cartoon: "Cartoon",
+    anime: "Anime",
+    low_poly: "Low poly",
+    "3d": "3D",
+    "2d": "2D",
+    retro: "Retro",
+    minimalist: "Minimalist",
+    black_and_white: "Black and white",
+    realistic: "Realistic",
+    text_based: "Text-based"
+  },
+  "Mood": {
+    cozy: "Cozy",
+    relaxing: "Relaxing",
+    wholesome: "Wholesome",
+    funny: "Funny",
+    emotional: "Emotional",
+    atmospheric: "Atmospheric",
+    dark: "Dark",
+    spooky: "Spooky",
+    mysterious: "Mysterious",
+    surreal: "Surreal",
+    challenging: "Challenging",
+    fast_paced: "Fast-paced"
+  },
+  "Features": {
+    singleplayer: "Singleplayer",
+    multiplayer: "Multiplayer",
+    local_coop: "Local co-op",
+    online_coop: "Online co-op",
+    pvp: "PvP",
+    short: "Short",
+    replayable: "Replayable",
+    story_rich: "Story-rich",
+    choices_matter: "Choices matter",
+    multiple_endings: "Multiple endings",
+    procedural: "Procedurally generated",
+    physics: "Physics-based",
+    exploration: "Exploration",
+    crafting: "Crafting",
+    base_building: "Base building",
+    resource_management: "Resource management",
+    one_button: "One-button controls",
+    accessible: "Accessible"
+  },
+  "Themes": {
+    fantasy: "Fantasy",
+    sci_fi: "Sci-fi",
+    space: "Space",
+    medieval: "Medieval",
+    post_apocalyptic: "Post-apocalyptic",
+    cyberpunk: "Cyberpunk",
+    noir: "Noir",
+    western: "Western",
+    historical: "Historical",
+    mythology: "Mythology",
+    ocean: "Ocean",
+    nature: "Nature",
+    cats: "Cats",
+    dogs: "Dogs",
+    robots: "Robots",
+    zombies: "Zombies",
+    detective: "Detective",
+    magic: "Magic",
+    pirates: "Pirates",
+    ninjas: "Ninjas",
+    dinosaurs: "Dinosaurs"
+  }
+};
+
+const tagNames = {};
+for (const group of Object.values(tagGroups)) {
+  Object.assign(tagNames, group);
+}
 
 const lengthNames = {
   under_15_min: "Under 15 min",
@@ -24,13 +152,6 @@ const playerNames = {
   single: "Single player",
   multi: "Multiplayer",
   both: "Single and multiplayer"
-};
-
-const controlNames = {
-  keyboard: "Keyboard",
-  mouse: "Mouse",
-  gamepad: "Gamepad",
-  touch: "Touch"
 };
 
 const platformNames = {
@@ -47,6 +168,27 @@ const aiNames = {
   assisted: "AI-assisted",
   mostly: "Mostly AI-generated"
 };
+
+function fillSelect(select, names, firstLabel) {
+  if (firstLabel !== undefined) {
+    const first = document.createElement("option");
+    first.value = "";
+    first.textContent = firstLabel;
+    select.append(first);
+  }
+  for (const key of Object.keys(names)) {
+    const option = document.createElement("option");
+    option.value = key;
+    option.textContent = names[key];
+    select.append(option);
+  }
+}
+
+function knownLabels(keys, names) {
+  return keys
+    .filter(function (key) { return names[key]; })
+    .map(function (key) { return names[key]; });
+}
 
 function imageUrl(path) {
   return db.storage.from("covers").getPublicUrl(path).data.publicUrl;
