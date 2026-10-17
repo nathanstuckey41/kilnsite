@@ -71,9 +71,9 @@
 
       <fieldset>
         <legend>Where to get it</legend>
-        <p class="hint">Add a link for each place your game is available, with its price there. Links must start with https://</p>
+        <p class="hint">Add a link for each place your game is available, with its price there. Use the arrows to move between platforms. Links must start with https://</p>
 
-        <label for="currency">Currency for the prices below</label>
+        <label for="currency">Currency for the prices</label>
         <select id="currency">
           <option value="USD">USD ($)</option>
           <option value="EUR">EUR</option>
@@ -82,70 +82,85 @@
           <option value="AUD">AUD</option>
         </select>
 
-        <div class="link-row">
-          <label for="steam_url">Steam</label>
-          <input id="steam_url" type="url" placeholder="https://store.steampowered.com/app/...">
-          <div class="price-row">
-            <select id="steam_type">
-              <option value="free">Free</option>
-              <option value="paid">Paid</option>
-              <option value="pwyw">Pay what you want</option>
-            </select>
-            <input id="steam_price" type="number" step="0.01" min="0.01" max="1000" placeholder="19.99">
+        <div class="carousel">
+          <button type="button" class="arrow" id="arrow-left" aria-label="Previous platform">&lsaquo;</button>
+
+          <div class="carousel-window">
+            <div class="carousel-track" id="carousel-track">
+
+              <div class="platform-card" data-platform="steam">
+                <h3>Steam</h3>
+                <label for="steam_url">Store page link</label>
+                <input id="steam_url" type="text" inputmode="url" placeholder="https://store.steampowered.com/app/...">
+                <label for="steam_type">Price</label>
+                <select id="steam_type">
+                  <option value="free">Free</option>
+                  <option value="paid">Paid</option>
+                  <option value="pwyw">Pay what you want</option>
+                </select>
+                <input id="steam_price" type="text" inputmode="decimal" placeholder="Price, for example 19.99" hidden>
+              </div>
+
+              <div class="platform-card" data-platform="newgrounds">
+                <h3>Newgrounds</h3>
+                <label for="newgrounds_url">Game page link</label>
+                <input id="newgrounds_url" type="text" inputmode="url" placeholder="https://www.newgrounds.com/...">
+                <label for="newgrounds_type">Price</label>
+                <select id="newgrounds_type">
+                  <option value="free">Free</option>
+                  <option value="paid">Paid</option>
+                  <option value="pwyw">Pay what you want</option>
+                </select>
+                <input id="newgrounds_price" type="text" inputmode="decimal" placeholder="Price, for example 4.99" hidden>
+              </div>
+
+              <div class="platform-card" data-platform="itch">
+                <h3>itch.io</h3>
+                <label for="itch_url">Game page link</label>
+                <input id="itch_url" type="text" inputmode="url" placeholder="https://yourname.itch.io/your-game">
+                <label for="itch_type">Price</label>
+                <select id="itch_type">
+                  <option value="free">Free</option>
+                  <option value="paid">Paid</option>
+                  <option value="pwyw">Pay what you want</option>
+                </select>
+                <input id="itch_price" type="text" inputmode="decimal" placeholder="Price, for example 9.99" hidden>
+              </div>
+
+              <div class="platform-card" data-platform="gamejolt">
+                <h3>Game Jolt</h3>
+                <label for="gamejolt_url">Game page link</label>
+                <input id="gamejolt_url" type="text" inputmode="url" placeholder="https://gamejolt.com/games/...">
+                <label for="gamejolt_type">Price</label>
+                <select id="gamejolt_type">
+                  <option value="free">Free</option>
+                  <option value="paid">Paid</option>
+                  <option value="pwyw">Pay what you want</option>
+                </select>
+                <input id="gamejolt_price" type="text" inputmode="decimal" placeholder="Price, for example 4.99" hidden>
+              </div>
+
+              <div class="platform-card" data-platform="website">
+                <h3>Your own website</h3>
+                <label for="website_url">Link</label>
+                <input id="website_url" type="text" inputmode="url" placeholder="https://...">
+                <label for="website_type">Price</label>
+                <select id="website_type">
+                  <option value="free">Free</option>
+                  <option value="paid">Paid</option>
+                  <option value="pwyw">Pay what you want</option>
+                </select>
+                <input id="website_price" type="text" inputmode="decimal" placeholder="Price, for example 9.99" hidden>
+              </div>
+
+            </div>
           </div>
+
+          <button type="button" class="arrow" id="arrow-right" aria-label="Next platform">&rsaquo;</button>
         </div>
 
-        <div class="link-row">
-          <label for="itch_url">itch.io</label>
-          <input id="itch_url" type="url" placeholder="https://yourname.itch.io/your-game">
-          <div class="price-row">
-            <select id="itch_type">
-              <option value="free">Free</option>
-              <option value="paid">Paid</option>
-              <option value="pwyw">Pay what you want</option>
-            </select>
-            <input id="itch_price" type="number" step="0.01" min="0.01" max="1000" placeholder="9.99">
-          </div>
-        </div>
-
-        <div class="link-row">
-          <label for="newgrounds_url">Newgrounds</label>
-          <input id="newgrounds_url" type="url" placeholder="https://www.newgrounds.com/...">
-          <div class="price-row">
-            <select id="newgrounds_type">
-              <option value="free">Free</option>
-              <option value="paid">Paid</option>
-              <option value="pwyw">Pay what you want</option>
-            </select>
-            <input id="newgrounds_price" type="number" step="0.01" min="0.01" max="1000" placeholder="4.99">
-          </div>
-        </div>
-
-        <div class="link-row">
-          <label for="gamejolt_url">Game Jolt</label>
-          <input id="gamejolt_url" type="url" placeholder="https://gamejolt.com/games/...">
-          <div class="price-row">
-            <select id="gamejolt_type">
-              <option value="free">Free</option>
-              <option value="paid">Paid</option>
-              <option value="pwyw">Pay what you want</option>
-            </select>
-            <input id="gamejolt_price" type="number" step="0.01" min="0.01" max="1000" placeholder="4.99">
-          </div>
-        </div>
-
-        <div class="link-row">
-          <label for="website_url">Your own website</label>
-          <input id="website_url" type="url" placeholder="https://...">
-          <div class="price-row">
-            <select id="website_type">
-              <option value="free">Free</option>
-              <option value="paid">Paid</option>
-              <option value="pwyw">Pay what you want</option>
-            </select>
-            <input id="website_price" type="number" step="0.01" min="0.01" max="1000" placeholder="9.99">
-          </div>
-        </div>
+        <div class="carousel-pills" id="carousel-pills"></div>
+        <p id="carousel-summary" class="hint"></p>
       </fieldset>
 
       <fieldset>
@@ -194,5 +209,6 @@
   <script src="session.js"></script>
   <script src="labels.js"></script>
   <script src="publish.js"></script>
+  <script src="carousel.js"></script>
 </body>
 </html>

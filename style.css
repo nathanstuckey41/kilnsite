@@ -492,3 +492,80 @@ main .hint {
 .publish-box button.tag-chip:hover {
   background-color: #2a1d14;
 }
+.carousel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 0 12px;
+}
+
+.carousel-window {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.3s ease;
+}
+
+.platform-card {
+  flex: 0 0 100%;
+  box-sizing: border-box;
+  padding: 18px;
+  background-color: #1e1915;
+  border: 1px solid #2a231e;
+  border-radius: 10px;
+}
+
+.platform-card h3 {
+  color: #ff6a1f;
+  margin: 0 0 14px;
+  font-size: 20px;
+}
+
+.publish-box button.arrow {
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border-radius: 50%;
+  font-size: 26px;
+  line-height: 1;
+}
+
+.link-warning {
+  color: #ff8340;
+  font-size: 14px;
+  margin: -6px 0 12px;
+}
+
+.carousel-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.publish-box button.pill {
+  width: auto;
+  padding: 6px 12px;
+  background-color: #1e1915;
+  color: #b9a99b;
+  border: 1px solid #2a231e;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: normal;
+}
+
+.publish-box button.pill.filled {
+  color: #f2e8df;
+  border-color: #7d6f64;
+}
+
+.publish-box button.pill.active {
+  color: #ff6a1f;
+  border-color: #ff6a1f;
+}
