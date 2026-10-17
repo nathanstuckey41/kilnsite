@@ -667,3 +667,12 @@ main .hint {
   margin: 0 8px 6px 0;
   border-radius: 6px;
 }
+.stats {
+  margin-top: 8px;
+}
+
+.stats p {
+  margin: 3px 0;
+  font-size: 14px;
+  color: #b9a99b;
+}

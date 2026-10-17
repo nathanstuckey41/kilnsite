@@ -12,10 +12,21 @@ function el(tag, className, text) {
   return node;
 }
 
-function totalClicks(game) {
-  return game.game_links.reduce(function (sum, link) {
-    return sum + link.clicks;
-  }, 0);
+function weekCutoff() {
+  return new Date(Date.now() - 6 * 24 * 60 * 60 * 1000)
+    .toISOString()
+    .slice(0, 10);
+}
+
+function sumRows(rows, field, onlyRecent) {
+  const cutoff = weekCutoff();
+  let total = 0;
+  for (const row of rows) {
+    if (!onlyRecent || row.day >= cutoff) {
+      total += row[field];
+    }
+  }
+  return total;
 }
 
 function showEmpty() {
@@ -24,6 +35,53 @@ function showEmpty() {
   link.href = "publish.html";
   empty.append(link);
   list.replaceChildren(empty);
+}
+
+function buildStats(game) {
+  const stats = el("div", "stats");
+
+  const views = game.game_daily_stats;
+  stats.append(
+    el(
+      "p",
+      null,
+      "Page views: " +
+        sumRows(views, "views", false) +
+        " total · " +
+        sumRows(views, "views", true) +
+        " in the last 7 days"
+    )
+  );
+
+  const order = Object.keys(platformNames);
+  const links = game.game_links.slice().sort(function (a, b) {
+    return order.indexOf(a.platform) - order.indexOf(b.platform);
+  });
+
+  for (const link of links) {
+    stats.append(
+      el(
+        "p",
+        null,
+        "Clicks to " +
+          platformNames[link.platform] +
+          ": " +
+          link.clicks +
+          " total · " +
+          sumRows(link.link_daily_clicks, "clicks", true) +
+          " in the last 7 days"
+      )
+    );
+  }
+
+  stats.append(
+    el(
+      "p",
+      "hint",
+      "Counted once per visitor session, so numbers are approximate."
+    )
+  );
+  return stats;
 }
 
 function buildRow(game) {
@@ -44,12 +102,10 @@ function buildRow(game) {
       game.status === "live" ? "Live" : "Hidden"
     )
   );
-  info.append(
-    el("p", "hint", "Clicks sent to your store pages: " + totalClicks(game))
-  );
   if (game.status !== "live") {
     info.append(el("p", "hint", "Hidden games aren't shown on Kiln."));
   }
+  info.append(buildStats(game));
 
   const actions = el("div", "my-actions");
 
@@ -125,7 +181,9 @@ async function loadMyGames() {
 
   const { data, error } = await db
     .from("games")
-    .select("id, title, status, cover_path, screenshots, created_at, game_links(clicks)")
+    .select(
+      "id, title, status, cover_path, screenshots, created_at, game_daily_stats(day, views), game_links(id, platform, clicks, link_daily_clicks(day, clicks))"
+    )
     .eq("developer_id", session.user.id)
     .order("created_at", { ascending: false });
 

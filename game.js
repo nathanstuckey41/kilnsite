@@ -32,7 +32,26 @@ function trackClick(linkId) {
   } catch (error) {
     // storage unavailable, the click is still counted once below
   }
-  db.rpc("record_click", { link_id: linkId }).then(function () {});
+  db.rpc("record_click", { p_link_id: linkId }).then(function () {});
+}
+
+function trackView(id) {
+  let seen = [];
+  try {
+    seen = JSON.parse(sessionStorage.getItem("kiln-views") || "[]");
+  } catch (error) {
+    seen = [];
+  }
+  if (seen.includes(id)) {
+    return;
+  }
+  seen.push(id);
+  try {
+    sessionStorage.setItem("kiln-views", JSON.stringify(seen));
+  } catch (error) {
+    // storage unavailable, the view is still counted once below
+  }
+  db.rpc("record_view", { p_game_id: id }).then(function () {});
 }
 
 function renderGame(game) {
@@ -172,6 +191,7 @@ async function loadGame() {
     return;
   }
 
+  trackView(data.id);
   renderGame(data);
 }
 
