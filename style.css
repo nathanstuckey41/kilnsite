@@ -107,3 +107,55 @@ footer {
   outline: none;
   border-color: #ff6a1f;
 }
+.auth-box {
+  max-width: 380px;
+  margin: 60px auto;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.auth-box h1 {
+  color: #ff6a1f;
+}
+
+.auth-box input {
+  display: block;
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 14px;
+  background-color: #1e1915;
+  color: #f2e8df;
+  border: 1px solid #2a231e;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.auth-box input:focus {
+  outline: none;
+  border-color: #ff6a1f;
+}
+
+.auth-box button {
+  width: 100%;
+  padding: 12px;
+  background-color: #ff6a1f;
+  color: #14110f;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.message {
+  color: #b9a99b;
+  min-height: 24px;
+}
+
+.auth-box a {
+  color: #ff6a1f;
+}
+
+.logo {
+  text-decoration: none;
+}

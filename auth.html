@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kiln - Log in</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <a class="logo" href="index.html">Kiln</a>
+    <nav>
+      <a href="index.html">Browse</a>
+      <a href="#">Publish your game</a>
+      <a href="auth.html" id="auth-link">Log in</a>
+    </nav>
+  </header>
+
+  <main class="auth-box">
+    <h1 id="auth-title">Log in</h1>
+
+    <form id="auth-form">
+      <input id="email" type="email" placeholder="Email" required>
+      <input id="password" type="password" placeholder="Password (8+ characters)" minlength="8" required>
+      <button id="submit-button" type="submit">Log in</button>
+    </form>
+
+    <p id="message" class="message"></p>
+    <p><a href="#" id="toggle">Need an account? Sign up</a></p>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="session.js"></script>
+  <script src="auth.js"></script>
+</body>
+</html>
