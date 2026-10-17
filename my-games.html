@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kiln - My games</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <a class="logo" href="index.html">Kiln</a>
+    <nav>
+      <a href="index.html">Browse</a>
+      <a href="publish.html">Publish your game</a>
+      <a href="auth.html" id="auth-link">Log in</a>
+    </nav>
+  </header>
+
+  <main class="my-games">
+    <h1>My games</h1>
+    <p id="my-message" class="message"></p>
+    <div id="my-list"></div>
+    <p><a class="row-button" href="publish.html">Publish a new game</a></p>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="session.js"></script>
+  <script src="labels.js"></script>
+  <script src="my-games.js"></script>
+</body>
+</html>
