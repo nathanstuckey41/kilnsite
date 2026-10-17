@@ -27,8 +27,8 @@ function updateCategoryNote() {
     return value(id) === "none";
   });
   categoryNote.textContent = allHuman
-    ? "This game will be listed as human-made."
-    : "This game will be listed in the AI category.";
+    ? "This game will be labeled: no generative AI."
+    : "This game will be labeled: uses generative AI.";
 }
 
 async function checkAccess() {

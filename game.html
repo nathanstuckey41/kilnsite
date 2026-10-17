@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kiln</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <a class="logo" href="index.html">Kiln</a>
+    <nav>
+      <a href="index.html">Browse</a>
+      <a href="publish.html">Publish your game</a>
+      <a href="auth.html" id="auth-link">Log in</a>
+    </nav>
+  </header>
+
+  <main class="game-page" id="game-page">
+    <p class="message">Loading...</p>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="session.js"></script>
+  <script src="labels.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>

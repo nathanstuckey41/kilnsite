@@ -304,3 +304,170 @@ footer {
   opacity: 0.6;
   cursor: wait;
 }
+.grid > a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.cover-img {
+  display: block;
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  background-color: #3a2a20;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.facts {
+  margin-top: 4px;
+}
+
+.price {
+  color: #ff6a1f;
+  font-weight: bold;
+  margin-top: 6px;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 12px;
+  align-items: center;
+}
+
+.filters select {
+  padding: 10px 12px;
+  background-color: #1e1915;
+  color: #f2e8df;
+  border: 1px solid #2a231e;
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+.check-filter {
+  color: #b9a99b;
+  font-size: 15px;
+}
+
+main .hint {
+  color: #7d6f64;
+  font-size: 14px;
+}
+
+.game-page {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 0 20px 60px;
+}
+
+.game-hero {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+
+.game-cover {
+  width: 320px;
+  max-width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+  background-color: #3a2a20;
+}
+
+.game-info {
+  flex: 1;
+  min-width: 240px;
+}
+
+.game-info h1 {
+  color: #ff6a1f;
+  margin: 0 0 6px;
+}
+
+.tagline {
+  color: #b9a99b;
+  margin: 0 0 8px;
+}
+
+.byline a {
+  color: #ff6a1f;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.chips span {
+  background-color: #1e1915;
+  border: 1px solid #2a231e;
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 14px;
+  color: #b9a99b;
+}
+
+.game-page h2 {
+  font-size: 20px;
+  margin: 30px 0 12px;
+}
+
+.buy-button {
+  display: block;
+  max-width: 420px;
+  margin-bottom: 10px;
+  padding: 14px 18px;
+  background-color: #ff6a1f;
+  color: #14110f;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.buy-button:hover {
+  background-color: #ff8340;
+}
+
+.play-button {
+  padding: 12px 20px;
+  background-color: #1e1915;
+  color: #ff6a1f;
+  border: 1px solid #ff6a1f;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.play-frame {
+  width: 100%;
+  height: 520px;
+  border: 1px solid #2a231e;
+  border-radius: 10px;
+  background-color: #000;
+}
+
+.shots-row {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+
+.shots-row img {
+  height: 180px;
+  border-radius: 8px;
+  display: block;
+}
+
+.about p,
+.made p {
+  line-height: 1.6;
+  margin: 0 0 12px;
+}

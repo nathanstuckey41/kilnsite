@@ -18,14 +18,68 @@
   </header>
 
   <section class="hero">
-    <h1>A home for human-made games</h1>
-    <p>Every game here is declared by the people who made it.</p>
+    <h1>Games that deserve to be found</h1>
+    <p>List your game once. Get it discovered across Steam, Newgrounds, and itch.io</p>
   </section>
 
  <main>
-  <h2>Featured games</h2>
-  <input id="search" class="search" type="text" placeholder="Search games, developers, or genres">
+  <main>
+  <h2>Browse games</h2>
+
+  <input id="search" class="search" type="text" placeholder="Search by title, developer, or tag">
+
+  <div class="filters">
+    <select id="f-genre">
+      <option value="">All genres</option>
+      <option value="action">Action</option>
+      <option value="platformer">Platformer</option>
+      <option value="puzzle">Puzzle</option>
+      <option value="adventure">Adventure</option>
+      <option value="rpg">RPG</option>
+      <option value="strategy">Strategy</option>
+      <option value="simulation">Simulation</option>
+      <option value="horror">Horror</option>
+      <option value="narrative">Narrative</option>
+      <option value="shooter">Shooter</option>
+      <option value="sports_racing">Sports and racing</option>
+      <option value="other">Other</option>
+    </select>
+
+    <select id="f-length">
+      <option value="">Any length</option>
+      <option value="under_15_min">Under 15 minutes</option>
+      <option value="15_to_60_min">15 to 60 minutes</option>
+      <option value="1_to_3_hours">1 to 3 hours</option>
+      <option value="over_3_hours">Over 3 hours</option>
+    </select>
+
+    <select id="f-players">
+      <option value="">Any players</option>
+      <option value="single">Single player</option>
+      <option value="multi">Multiplayer</option>
+    </select>
+
+    <select id="f-controls">
+      <option value="">Any controls</option>
+      <option value="keyboard">Keyboard</option>
+      <option value="mouse">Mouse</option>
+      <option value="gamepad">Gamepad</option>
+      <option value="touch">Touch</option>
+    </select>
+
+    <select id="f-sort">
+      <option value="new">Newest first</option>
+      <option value="title">Title A to Z</option>
+    </select>
+
+    <label class="check-filter">
+      <input type="checkbox" id="f-noai"> Hide games that use AI
+    </label>
+  </div>
+
+  <p id="result-count" class="hint"></p>
   <div class="grid" id="game-grid"></div>
+</main>
 </main>
 
   <footer>
@@ -34,6 +88,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="config.js"></script>
 <script src="session.js"></script>
+<script src="labels.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
