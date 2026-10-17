@@ -25,10 +25,21 @@
  <main>
   <h2>Browse games</h2>
 
-  <input id="search" class="search" type="text" placeholder="Search by title, developer, or tag">
+  <input id="search" class="search" type="text" placeholder="Search by title, developer, tag, or anything in the description">
 
   <div class="filters">
     <select id="f-genre"></select>
+
+    <select id="f-price">
+      <option value="">Any price</option>
+      <option value="free">Free</option>
+      <option value="pwyw">Pay what you want</option>
+      <option value="under_5">Up to $5 (includes free)</option>
+      <option value="under_10">Up to $10 (includes free)</option>
+      <option value="under_20">Up to $20 (includes free)</option>
+    </select>
+
+    <select id="f-platform"></select>
 
     <select id="f-length">
       <option value="">Any length</option>
@@ -45,7 +56,12 @@
     </select>
 
     <select id="f-sort">
-      <option value="new">Newest first</option>
+      <option value="relevance">Best match</option>
+      <option value="new">Newest</option>
+      <option value="trending">Trending this week</option>
+      <option value="unseen">New and unseen</option>
+      <option value="gems">Hidden gems</option>
+      <option value="cheap">Lowest price</option>
       <option value="title">Title A to Z</option>
     </select>
 
@@ -54,7 +70,13 @@
     </label>
   </div>
 
+  <div class="filters">
+    <select id="f-tag"></select>
+    <div id="f-tag-chips" class="tag-chips"></div>
+  </div>
+
   <p id="result-count" class="hint"></p>
+  <button type="button" id="clear-filters" class="row-button" hidden>Clear filters</button>
   <div class="grid" id="game-grid"></div>
 </main>
 

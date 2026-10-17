@@ -100,6 +100,13 @@ function renderGame(game) {
     return order.indexOf(a.platform) - order.indexOf(b.platform);
   });
 
+  const paidPrices = links
+    .filter(function (link) { return link.price_type === "paid"; })
+    .map(function (link) { return link.price_cents; });
+  const lowestPaid = paidPrices.length > 0 ? Math.min(...paidPrices) : null;
+  const showBadge =
+    paidPrices.length >= 2 && lowestPaid < Math.max(...paidPrices);
+
   if (links.length === 0) {
     buy.append(el("p", "hint", "No store links yet."));
   }
@@ -112,6 +119,14 @@ function renderGame(game) {
     button.addEventListener("click", function () {
       trackClick(link.id);
     });
+
+    if (
+      showBadge &&
+      link.price_type === "paid" &&
+      link.price_cents === lowestPaid
+    ) {
+      button.append(" ", el("span", "badge", "Lowest price"));
+    }
     buy.append(button);
   }
 
@@ -171,6 +186,59 @@ function renderGame(game) {
   page.append(made);
 }
 
+async function renderSimilar(game) {
+  const { data, error } = await db
+    .from("games")
+    .select(
+      "id, title, genre, tags, play_length, cover_path, profiles(username), game_links(price_type, price_cents, currency)"
+    )
+    .eq("status", "live")
+    .neq("id", game.id)
+    .limit(200);
+
+  if (error || !data) {
+    return;
+  }
+
+  const matches = data
+    .map(function (other) {
+      let score = 0;
+      if (other.genre === game.genre) {
+        score += 3;
+      }
+      if (other.play_length === game.play_length) {
+        score += 1;
+      }
+      for (const tag of other.tags) {
+        if (game.tags.includes(tag)) {
+          score += 2;
+        }
+      }
+      return { other: other, score: score };
+    })
+    .filter(function (item) {
+      return item.score >= 3;
+    })
+    .sort(function (a, b) {
+      return b.score - a.score;
+    })
+    .slice(0, 4);
+
+  if (matches.length === 0) {
+    return;
+  }
+
+  const section = el("section", "similar");
+  section.append(el("h2", null, "More like this"));
+
+  const row = el("div", "grid");
+  for (const item of matches) {
+    row.append(buildGameCard(item.other));
+  }
+  section.append(row);
+  page.append(section);
+}
+
 async function loadGame() {
   if (!gameId || !/^[0-9a-f-]{36}$/i.test(gameId)) {
     showMessage("Game not found.");
@@ -193,6 +261,7 @@ async function loadGame() {
 
   trackView(data.id);
   renderGame(data);
+  renderSimilar(data);
 }
 
 loadGame();

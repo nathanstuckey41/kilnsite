@@ -676,3 +676,37 @@ main .hint {
   font-size: 14px;
   color: #b9a99b;
 }
+[hidden] {
+  display: none !important;
+}
+
+.filter-chip {
+  padding: 6px 12px;
+  background-color: #1e1915;
+  color: #f2e8df;
+  border: 1px solid #ff6a1f;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.filter-chip:hover {
+  background-color: #2a1d14;
+}
+
+.badge {
+  margin-left: 6px;
+  padding: 2px 8px;
+  border-radius: 12px;
+  background-color: #14110f;
+  color: #ff6a1f;
+  font-size: 12px;
+}
+
+.similar {
+  margin-top: 10px;
+}
+
+#clear-filters {
+  margin-bottom: 14px;
+}

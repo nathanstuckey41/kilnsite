@@ -232,3 +232,63 @@ function buttonLabel(link) {
   }
   return "Get it free on " + name;
 }
+function fillTagSelect(select, firstLabel) {
+  const first = document.createElement("option");
+  first.value = "";
+  first.textContent = firstLabel;
+  select.append(first);
+
+  for (const groupName of Object.keys(tagGroups)) {
+    const group = document.createElement("optgroup");
+    group.label = groupName;
+
+    for (const key of Object.keys(tagGroups[groupName])) {
+      const option = document.createElement("option");
+      option.value = key;
+      option.textContent = tagGroups[groupName][key];
+      group.append(option);
+    }
+    select.append(group);
+  }
+}
+
+function buildGameCard(game) {
+  const link = document.createElement("a");
+  link.href = "game.html?id=" + game.id;
+
+  const card = document.createElement("div");
+  card.className = "card";
+
+  const cover = document.createElement("img");
+  cover.className = "cover-img";
+  cover.alt = game.title + " cover";
+  cover.loading = "lazy";
+  if (game.cover_path) {
+    cover.src = imageUrl(game.cover_path);
+  }
+
+  const title = document.createElement("h3");
+  title.textContent = game.title;
+
+  const developer = document.createElement("p");
+  developer.textContent =
+    "By " + (game.profiles ? game.profiles.username : "unknown");
+
+  const facts = document.createElement("p");
+  facts.className = "facts";
+  facts.textContent =
+    (genreNames[game.genre] || "Other") + " · " + lengthNames[game.play_length];
+
+  card.append(cover, title, developer, facts);
+
+  const price = priceSummary(game.game_links);
+  if (price) {
+    const priceLine = document.createElement("p");
+    priceLine.className = "price";
+    priceLine.textContent = price;
+    card.append(priceLine);
+  }
+
+  link.append(card);
+  return link;
+}
