@@ -159,3 +159,59 @@ footer {
 .logo {
   text-decoration: none;
 }
+.profile-box {
+  max-width: 480px;
+  margin: 60px auto;
+  padding: 0 20px;
+}
+
+.profile-box h1 {
+  color: #ff6a1f;
+  margin-bottom: 4px;
+}
+
+.role {
+  color: #b9a99b;
+  text-transform: capitalize;
+  margin-top: 0;
+}
+
+.bio {
+  margin: 16px 0 28px;
+}
+
+.profile-box label {
+  display: block;
+  margin-bottom: 6px;
+  color: #b9a99b;
+}
+
+.profile-box input,
+.profile-box textarea {
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 14px;
+  background-color: #1e1915;
+  color: #f2e8df;
+  border: 1px solid #2a231e;
+  border-radius: 8px;
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+}
+
+.profile-box input:focus,
+.profile-box textarea:focus {
+  outline: none;
+  border-color: #ff6a1f;
+}
+
+.profile-box button {
+  padding: 12px 18px;
+  background-color: #ff6a1f;
+  color: #14110f;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}

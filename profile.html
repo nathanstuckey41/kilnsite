@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kiln - Profile</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <a class="logo" href="index.html">Kiln</a>
+    <nav>
+      <a href="index.html">Browse</a>
+      <a href="#">Publish your game</a>
+      <a href="auth.html" id="auth-link">Log in</a>
+    </nav>
+  </header>
+
+  <main class="profile-box">
+    <h1 id="profile-name">Profile</h1>
+    <p id="profile-role" class="role"></p>
+    <p id="profile-bio" class="bio"></p>
+
+    <form id="edit-form" hidden>
+      <label for="username">Username</label>
+      <input id="username" type="text" maxlength="24">
+
+      <label for="bio">Bio</label>
+      <textarea id="bio" maxlength="280" rows="4"></textarea>
+
+      <button type="submit">Save profile</button>
+    </form>
+
+    <button id="dev-button" hidden>Become a developer</button>
+    <p id="profile-message" class="message"></p>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="session.js"></script>
+  <script src="profile.js"></script>
+</body>
+</html>

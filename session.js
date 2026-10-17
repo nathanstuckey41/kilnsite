@@ -3,6 +3,11 @@ async function updateNav() {
   const { data } = await db.auth.getSession();
 
   if (data.session) {
+    const profileLink = document.createElement("a");
+    profileLink.href = "profile.html";
+    profileLink.textContent = "Profile";
+    link.before(profileLink);
+
     link.textContent = "Log out";
     link.href = "#";
     link.addEventListener("click", async function (event) {
