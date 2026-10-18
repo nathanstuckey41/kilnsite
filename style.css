@@ -980,3 +980,50 @@ html[data-theme="paper"] .grid > a:hover .card {
 .theme-option .theme-dot {
   flex: 0 0 auto;
 }
+.legal {
+  max-width: 760px;
+  margin: 40px auto;
+}
+
+.legal h1 {
+  margin-top: 0;
+}
+
+.legal h2 {
+  font-size: 20px;
+  margin: 30px 0 10px;
+}
+
+.legal p,
+.legal li {
+  line-height: 1.7;
+}
+
+.legal ul {
+  padding-left: 22px;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin-top: 10px;
+}
+
+.footer-links a {
+  color: var(--muted);
+}
+
+.footer-links a:hover {
+  color: var(--accent);
+}
+
+.report-link {
+  margin-top: 30px;
+  font-size: 14px;
+}
+
+.report-link a {
+  color: var(--faint);
+}

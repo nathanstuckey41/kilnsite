@@ -183,6 +183,17 @@ function renderGame(game) {
   made.append(el("p", null, "Writing: " + aiNames[game.ai_writing]));
   made.append(el("p", null, "Code: " + aiNames[game.ai_code]));
   made.append(el("p", "hint", "Declared by the developer."));
+  const report = el("p", "report-link");
+  const reportLink = el("a", null, "Report a problem with this listing");
+  reportLink.href =
+    "mailto:" +
+    CONTACT_EMAIL +
+    "?subject=" +
+    encodeURIComponent("Problem with listing: " + game.title) +
+    "&body=" +
+    encodeURIComponent("Listing: " + window.location.href + "\n\nWhat's wrong:\n");
+  report.append(reportLink);
+  page.append(report);
   page.append(made);
 }
 
