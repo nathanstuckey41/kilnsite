@@ -1,76 +1,23 @@
 /* ---------- Basics ---------- */
-
 :root {
-  --bg: #110e0c;
-  --surface: #1b1612;
-  --surface-2: #251d17;
-  --border: #33291f;
-  --text: #f4ece4;
-  --muted: #b4a496;
-  --faint: #85776a;
-  --accent: #ff6a1f;
-  --accent-hot: #ff8a3d;
-  --danger: #ff4a3d;
+  --bg: #0e0c16;
+  --surface: #171425;
+  --surface-2: #1f1b33;
+  --border: #2f2a4a;
+  --text: #f0eefb;
+  --muted: #aaa5c7;
+  --faint: #766f99;
+  --accent: #9a7bff;
+  --accent-hot: #b39dff;
+  --danger: #ff5a7a;
+  --on-accent: #0e0c16;
+  --header-bg: rgba(14, 12, 22, 0.85);
+  --glow: rgba(154, 123, 255, 0.22);
+  --focus-ring: rgba(154, 123, 255, 0.25);
+  --logo-gradient: linear-gradient(135deg, #b39dff, #7c5cff);
   --radius: 14px;
   color-scheme: dark;
 }
-
-* {
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--text);
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-}
-
-a {
-  color: var(--accent);
-}
-
-a:hover {
-  color: var(--accent-hot);
-}
-
-h1,
-h2,
-h3 {
-  line-height: 1.2;
-}
-
-[hidden] {
-  display: none !important;
-}
-
-main {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 20px 70px;
-}
-
-main h2 {
-  font-size: 26px;
-  margin: 10px 0 18px;
-}
-
-.hint {
-  color: var(--faint);
-  font-size: 14px;
-  margin: 0 0 12px;
-}
-
-.message {
-  color: var(--muted);
-  min-height: 24px;
-}
-
 /* ---------- Hidden for now: the AI declaration ----------
    Delete these three rules to bring the AI fields,
    the game page section and the browse filter back. */
@@ -99,7 +46,7 @@ header {
   gap: 16px;
   flex-wrap: wrap;
   padding: 14px 32px;
-  background: rgba(17, 14, 12, 0.85);
+  background: var(--header-bg);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--border);
 }
@@ -109,7 +56,7 @@ header {
   font-weight: 800;
   letter-spacing: -0.5px;
   text-decoration: none;
-  background: linear-gradient(135deg, #ff8a3d, #ff4a1f);
+  background: var(--logo-gradient);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -137,13 +84,13 @@ nav a:hover {
 
 nav a[href="publish.html"] {
   background: var(--accent);
-  color: #14110f;
+  color: var(--on-accent);
   font-weight: 700;
 }
 
 nav a[href="publish.html"]:hover {
   background: var(--accent-hot);
-  color: #14110f;
+  color: var(--on-accent);
 }
 
 /* ---------- Landing page ---------- */
@@ -151,7 +98,7 @@ nav a[href="publish.html"]:hover {
 .hero {
   text-align: center;
   padding: 90px 20px 70px;
-  background: radial-gradient(ellipse at 50% 0%, rgba(255, 106, 31, 0.22), transparent 65%);
+  background: radial-gradient(ellipse at 50% 0%, var(--glow), transparent 65%);
 }
 
 .hero h1 {
@@ -182,7 +129,7 @@ nav a[href="publish.html"]:hover {
   display: inline-block;
   padding: 13px 26px;
   background: var(--accent);
-  color: #14110f;
+  color: var(--on-accent);
   font-weight: 700;
   text-decoration: none;
   border: 2px solid var(--accent);
@@ -192,7 +139,7 @@ nav a[href="publish.html"]:hover {
 .button:hover {
   background: var(--accent-hot);
   border-color: var(--accent-hot);
-  color: #14110f;
+  color: var(--on-accent);
 }
 
 .button.secondary {
@@ -257,7 +204,7 @@ select:focus,
 textarea:focus {
   outline: none;
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(255, 106, 31, 0.18);
+  box-shadow: 0 0 0 3px var(--focus-ring);
 }
 
 ::placeholder {
@@ -442,7 +389,7 @@ footer p {
 .publish-box button[type="submit"] {
   padding: 13px 22px;
   background: var(--accent);
-  color: #14110f;
+  color: var(--on-accent);
   border: none;
   border-radius: 999px;
   font-size: 16px;
@@ -595,7 +542,7 @@ button.arrow {
   height: 44px;
   padding: 0;
   background: var(--accent);
-  color: #14110f;
+  color: var(--on-accent);
   border: none;
   border-radius: 50%;
   font-size: 26px;
@@ -726,7 +673,7 @@ button.pill.active {
   margin-bottom: 10px;
   padding: 15px 20px;
   background: var(--accent);
-  color: #14110f;
+  color: var(--on-accent);
   font-weight: 700;
   text-decoration: none;
   text-align: center;
@@ -735,14 +682,14 @@ button.pill.active {
 
 .buy-button:hover {
   background: var(--accent-hot);
-  color: #14110f;
+  color: var(--on-accent);
 }
 
 .badge {
   margin-left: 6px;
   padding: 2px 9px;
   border-radius: 999px;
-  background: #14110f;
+  background: var(--on-accent);
   color: var(--accent);
   font-size: 12px;
 }
@@ -864,4 +811,172 @@ button.pill.active {
   .game-cover {
     width: 100%;
   }
+}
+html[data-theme="ocean"] {
+  --bg: #0a1220;
+  --surface: #101c30;
+  --surface-2: #182740;
+  --border: #243652;
+  --text: #eaf2fc;
+  --muted: #9db0cb;
+  --faint: #6a7f9f;
+  --accent: #4da3ff;
+  --accent-hot: #7fbcff;
+  --danger: #ff6b78;
+  --on-accent: #07111f;
+  --header-bg: rgba(10, 18, 32, 0.85);
+  --glow: rgba(77, 163, 255, 0.2);
+  --focus-ring: rgba(77, 163, 255, 0.25);
+  --logo-gradient: linear-gradient(135deg, #7fbcff, #3a86f0);
+  color-scheme: dark;
+}
+
+html[data-theme="teal"] {
+  --bg: #0a1214;
+  --surface: #111d20;
+  --surface-2: #182a2e;
+  --border: #23383d;
+  --text: #ecf6f5;
+  --muted: #9bb4b4;
+  --faint: #647e80;
+  --accent: #2ee6c5;
+  --accent-hot: #6af2d9;
+  --danger: #ff6b6b;
+  --on-accent: #071513;
+  --header-bg: rgba(10, 18, 20, 0.85);
+  --glow: rgba(46, 230, 197, 0.18);
+  --focus-ring: rgba(46, 230, 197, 0.22);
+  --logo-gradient: linear-gradient(135deg, #6af2d9, #1fc5a8);
+  color-scheme: dark;
+}
+
+html[data-theme="forest"] {
+  --bg: #0b130e;
+  --surface: #121e16;
+  --surface-2: #1a2b20;
+  --border: #28402f;
+  --text: #ecf6ee;
+  --muted: #9db8a4;
+  --faint: #67826e;
+  --accent: #5ee08a;
+  --accent-hot: #8aeaa8;
+  --danger: #ff6b6b;
+  --on-accent: #07150c;
+  --header-bg: rgba(11, 19, 14, 0.85);
+  --glow: rgba(94, 224, 138, 0.18);
+  --focus-ring: rgba(94, 224, 138, 0.22);
+  --logo-gradient: linear-gradient(135deg, #8aeaa8, #3cc66b);
+  color-scheme: dark;
+}
+
+html[data-theme="rose"] {
+  --bg: #150d12;
+  --surface: #1f141b;
+  --surface-2: #2a1b24;
+  --border: #3d2733;
+  --text: #fbeef4;
+  --muted: #c9a9b8;
+  --faint: #8f6d7e;
+  --accent: #ff6fa5;
+  --accent-hot: #ff93bd;
+  --danger: #ff5a5f;
+  --on-accent: #1a0a12;
+  --header-bg: rgba(21, 13, 18, 0.85);
+  --glow: rgba(255, 111, 165, 0.2);
+  --focus-ring: rgba(255, 111, 165, 0.25);
+  --logo-gradient: linear-gradient(135deg, #ff93bd, #f0508c);
+  color-scheme: dark;
+}
+
+html[data-theme="paper"] {
+  --bg: #f5f6fa;
+  --surface: #ffffff;
+  --surface-2: #eceef5;
+  --border: #d9dce8;
+  --text: #1a1d2b;
+  --muted: #555b73;
+  --faint: #8a90a6;
+  --accent: #5b4bdb;
+  --accent-hot: #4637c4;
+  --danger: #d93a4a;
+  --on-accent: #ffffff;
+  --header-bg: rgba(245, 246, 250, 0.85);
+  --glow: rgba(91, 75, 219, 0.12);
+  --focus-ring: rgba(91, 75, 219, 0.25);
+  --logo-gradient: linear-gradient(135deg, #7a6cf0, #4a3bd0);
+  color-scheme: light;
+}
+
+html[data-theme="paper"] .grid > a:hover .card {
+  box-shadow: 0 10px 24px rgba(30, 40, 80, 0.15);
+}
+
+.theme-switcher {
+  position: relative;
+  margin-left: 6px;
+}
+
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.theme-toggle:hover {
+  border-color: var(--accent);
+}
+
+.theme-dot {
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+}
+
+.theme-menu {
+  position: absolute;
+  right: 0;
+  top: 46px;
+  z-index: 20;
+  min-width: 190px;
+  padding: 6px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+}
+
+.theme-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 8px 10px;
+  background: transparent;
+  color: var(--text);
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.theme-option:hover {
+  background: var(--surface-2);
+}
+
+.theme-option.active {
+  color: var(--accent);
+}
+
+.theme-option .theme-dot {
+  flex: 0 0 auto;
 }
