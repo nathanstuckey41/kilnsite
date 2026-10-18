@@ -3,90 +3,108 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Kiln</title>
+  <title>Kiln - Find indie games worth playing</title>
+  <meta name="description" content="Search indie games from Steam, itch.io, Newgrounds, and Game Jolt in one place. Developers: list your game once and send players to every store it's on.">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
   <header>
-    <div class="logo">Kiln</div>
+    <a class="logo" href="index.html">Kiln</a>
     <nav>
-      <a href="#">Browse</a>
+      <a href="#browse">Browse</a>
       <a href="publish.html">Publish your game</a>
-     <a href="auth.html" id="auth-link">Log in</a>
+      <a href="auth.html" id="auth-link">Log in</a>
     </nav>
   </header>
 
   <section class="hero">
-    <h1>Games that deserve to be found</h1>
-    <p>List your game once. Get it discovered across Steam, Newgrounds, and itch.io</p>
+    <h1>Find indie games worth playing. <span class="accent">Get yours found.</span></h1>
+    <p>Search indie games from Steam, itch.io, Newgrounds, and Game Jolt in one place, or list your own and send players to every store it's on.</p>
+    <div class="hero-actions">
+      <a class="button" href="#browse">Browse games</a>
+      <a class="button secondary" href="publish.html">List your game</a>
+    </div>
   </section>
 
- <main>
-  <h2>Browse games</h2>
+  <section class="audience">
+    <div class="panel">
+      <h2>For players</h2>
+      <p>Search listed indie games in one place. Filter by genre, length, and price, see where a game is cheapest, and dig up hidden gems.</p>
+    </div>
+    <div class="panel">
+      <h2>For developers</h2>
+      <p>Already on Steam, itch.io, Newgrounds, or Game Jolt? List your game once, link every store it's on, and see how many players Kiln sends you.</p>
+    </div>
+  </section>
 
-  <input id="search" class="search" type="text" placeholder="Search by title, developer, tag, or anything in the description">
+  <main id="browse">
+    <h2>Browse games</h2>
 
-  <div class="filters">
-    <select id="f-genre"></select>
+    <input id="search" class="search" type="text" placeholder="Search by title, developer, tag, or anything in the description">
 
-    <select id="f-price">
-      <option value="">Any price</option>
-      <option value="free">Free</option>
-      <option value="pwyw">Pay what you want</option>
-      <option value="under_5">Up to $5 (includes free)</option>
-      <option value="under_10">Up to $10 (includes free)</option>
-      <option value="under_20">Up to $20 (includes free)</option>
-    </select>
+    <div class="filters">
+      <select id="f-genre"></select>
 
-    <select id="f-platform"></select>
+      <select id="f-price">
+        <option value="">Any price</option>
+        <option value="free">Free</option>
+        <option value="pwyw">Pay what you want</option>
+        <option value="under_5">Up to $5 (includes free)</option>
+        <option value="under_10">Up to $10 (includes free)</option>
+        <option value="under_20">Up to $20 (includes free)</option>
+      </select>
 
-    <select id="f-length">
-      <option value="">Any length</option>
-      <option value="under_15_min">Under 15 minutes</option>
-      <option value="15_to_60_min">15 to 60 minutes</option>
-      <option value="1_to_3_hours">1 to 3 hours</option>
-      <option value="over_3_hours">Over 3 hours</option>
-    </select>
+      <select id="f-platform"></select>
 
-    <select id="f-players">
-      <option value="">Any players</option>
-      <option value="single">Single player</option>
-      <option value="multi">Multiplayer</option>
-    </select>
+      <select id="f-length">
+        <option value="">Any length</option>
+        <option value="under_15_min">Under 15 minutes</option>
+        <option value="15_to_60_min">15 to 60 minutes</option>
+        <option value="1_to_3_hours">1 to 3 hours</option>
+        <option value="over_3_hours">Over 3 hours</option>
+      </select>
 
-    <select id="f-sort">
-      <option value="relevance">Best match</option>
-      <option value="new">Newest</option>
-      <option value="trending">Trending this week</option>
-      <option value="unseen">New and unseen</option>
-      <option value="gems">Hidden gems</option>
-      <option value="cheap">Lowest price</option>
-      <option value="title">Title A to Z</option>
-    </select>
+      <select id="f-players">
+        <option value="">Any players</option>
+        <option value="single">Single player</option>
+        <option value="multi">Multiplayer</option>
+      </select>
 
-    <label class="check-filter">
-      <input type="checkbox" id="f-noai"> Hide games that use AI
-    </label>
-  </div>
+      <select id="f-sort">
+        <option value="relevance">Best match</option>
+        <option value="new">Newest</option>
+        <option value="trending">Trending this week</option>
+        <option value="unseen">New and unseen</option>
+        <option value="gems">Hidden gems</option>
+        <option value="cheap">Lowest price</option>
+        <option value="title">Title A to Z</option>
+      </select>
 
-  <div class="filters">
-    <select id="f-tag"></select>
-    <div id="f-tag-chips" class="tag-chips"></div>
-  </div>
+      <label class="check-filter">
+        <input type="checkbox" id="f-noai"> Hide games that use AI
+      </label>
+    </div>
 
-  <p id="result-count" class="hint"></p>
-  <button type="button" id="clear-filters" class="row-button" hidden>Clear filters</button>
-  <div class="grid" id="game-grid"></div>
-</main>
+    <div class="filters">
+      <select id="f-tag"></select>
+      <div id="f-tag-chips" class="tag-chips"></div>
+    </div>
+
+    <p id="result-count" class="hint"></p>
+    <button type="button" id="clear-filters" class="row-button" hidden>Clear filters</button>
+    <div class="grid" id="game-grid"></div>
+  </main>
 
   <footer>
     <p>&copy; Kiln</p>
+    <p class="hint">Kiln is not affiliated with Valve, itch.io, Newgrounds, or Game Jolt.</p>
   </footer>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="config.js"></script>
-<script src="session.js"></script>
-<script src="labels.js"></script>
-<script src="script.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="session.js"></script>
+  <script src="labels.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
